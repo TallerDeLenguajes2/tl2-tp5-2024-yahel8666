@@ -5,16 +5,15 @@ public class ProductoRepository
     string connectionString;
     public ProductoRepository()
     {
-        connectionString = "Data Source=DB/Tienda.db;Cache=Shared";
+        connectionString = "Data Source=BD/Tienda.db;Cache=Shared";
     }
     public bool CrearProducto(Producto p)
     {
-        string query = "INSERT INTO Productos (Descripcion, Precio) VALUES (@nombre, @precio)";
         int filas = 0; 
+        string querystring = "INSERT INTO Productos (Descripcion, Precio) VALUES (@nombre, @precio);" ; 
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
-            string querystring = "INSERT INTO Productos (Descripcion, Precio) VALUES (@nombre, @precio);" ; 
             var command = new SqliteCommand(querystring , connection);
             command.Parameters.AddWithValue("@nombre" , p.Descripcion);
             command.Parameters.AddWithValue("@precio" , p.Precio);

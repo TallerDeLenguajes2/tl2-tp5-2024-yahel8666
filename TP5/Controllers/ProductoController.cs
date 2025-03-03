@@ -1,12 +1,13 @@
+namespace TP5;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
-public class PrespuestoController : ControllerBase  
+public class ProductoController : ControllerBase  
 {
     ProductoRepository _productoRepository;
 
-    public PrespuestoController()
+    public ProductoController()
     {
         _productoRepository = new ProductoRepository();
     }
@@ -27,14 +28,14 @@ public class PrespuestoController : ControllerBase
         else return Ok(productos); 
     }
 
-    [HttpDelete("Delete/{id}")]
-    public ActionResult Delete(int id)
-    {
-        if(_productoRepository.Delete(id)) return Ok(); 
-        else return NotFound("No se encontro el id"); 
-    }
+    // [HttpDelete("Delete/{id}")]
+    // public ActionResult Delete(int id)
+    // {
+    //     if(_productoRepository.Delete(id)) return Ok(); 
+    //     else return NotFound("No se encontro el id"); 
+    // }
 
-     [HttpPut("UpdateDescription/{id}")]
+    [HttpPut("Update/{id}")]
     public ActionResult Update(int id, [FromBody] Producto producto)
     {
         if (producto == null || string.IsNullOrWhiteSpace(producto.Descripcion))

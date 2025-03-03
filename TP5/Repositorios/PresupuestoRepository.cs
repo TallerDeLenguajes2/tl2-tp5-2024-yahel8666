@@ -4,15 +4,15 @@ public class PresupuestoRepository
     string connectionString;
     public PresupuestoRepository()
     {
-        connectionString = "Data Source=DB/Tienda.db;Cache=Shared";
+        connectionString = "Data Source=BD/Tienda.db;Cache=Shared";
     }
 
     public void Create(Presupuesto p)
     {
+        string queryString = $"INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha);";
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
-            string queryString = $"INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha);";
             var command = new SqliteCommand(queryString, connection);
             command.Parameters.AddWithValue("@Nombre", p.NombreDestinatario);
             command.Parameters.AddWithValue("@Fecha", p.FechaCreacion.ToString("yyyy-MM-dd"));
@@ -87,11 +87,11 @@ public class PresupuestoRepository
 
     public bool EliminarPresupuesto(int id)
     {
+        string queryString = $"DELETE FROM Presupuestos WHERE idPresupuesto = @id ;";
         int filas = 0; 
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
-            string queryString = $"DELETE FROM Presupuestos WHERE idPresupuesto = @id ;";
             var command = new SqliteCommand(queryString, connection);
             command.Parameters.AddWithValue("@id", id);
             filas = command.ExecuteNonQuery(); 
@@ -102,11 +102,11 @@ public class PresupuestoRepository
 
     public bool AgregarProducto(int id) 
     {
+        string stringQuery = "Select * from productos where idProducto = @id";
         int filas = 0; 
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
-            string stringQuery = "Select * from productos where idProducto = @id";
             var command = new SqliteCommand(stringQuery, connection);
             command.Parameters.AddWithValue("@id", id);
             var productoBuscado = new Producto();;

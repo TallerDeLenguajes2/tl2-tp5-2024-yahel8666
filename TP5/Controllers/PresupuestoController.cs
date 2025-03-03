@@ -1,4 +1,3 @@
-namespace TP5;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
